@@ -14,6 +14,6 @@ const firebaseConfig = {
   databaseURL: Constants.manifest.extra.databaseURL
 };
 // initialize firebase
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const database = getFirestore(app);
+export const app = initializeApp(firebaseConfig);
+export const authFirebase = getAuth(app);
+export const dbFirestore = getFirestore(app);
