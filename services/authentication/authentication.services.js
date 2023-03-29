@@ -28,3 +28,4 @@ export const registerRequest = (email, password, firstName, lastName, phoneNumbe
 export const authStateChangedRequest = (user) => onAuthStateChanged(authFirebase, user);
 
 export const logoutRequest = () => signOut(authFirebase);
+

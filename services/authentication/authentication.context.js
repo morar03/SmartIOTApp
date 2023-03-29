@@ -7,9 +7,9 @@ export const AuthenticationContextProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
-    
     // Check it out if user is already connected
     authStateChangedRequest((user)=>{
+        
         if (user) {
             setUser(user);
             setIsLoading(false);

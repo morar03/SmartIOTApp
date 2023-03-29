@@ -6,11 +6,10 @@ import theme from "./src/themes/index";
 import { useFonts, RubikIso_400Regular } from '@expo-google-fonts/rubik-iso';
 import { Righteous_400Regular } from '@expo-google-fonts/righteous';
 
-import { registerRequest, loginRequest } from './services/authentication/authentication.services';
-
 import { AuthenticationContextProvider } from './services/authentication/authentication.context';
-import { Test } from './src/test';
+import { DevicesContextProvider } from './services/devices/devices.context';
 
+import { Test } from './src/test';
 
 export default function App() {
 
@@ -24,12 +23,9 @@ export default function App() {
   };
 
   
-  // onLogin("morarcristiantraian@gmail.com", "123456");
-  // registerRequest("morarcristiantraian@gmail.com", "123456", "Cristian", "Morar", "0733075930");
-  // loginRequest("morarcristiantraian@gmail.com", "123456");
-  
   return (
     <AuthenticationContextProvider>
+    <DevicesContextProvider>
     <View style={styles.container}>
       <Text style={{ fontFamily: theme.fonts.regular, color:theme.colors.warning, fontSize: theme.fontSizes.xxlarge }}>Smart IOT APP</Text>
       <Text style={{ fontFamily: theme.fonts.medium, color:theme.colors.secondary, fontSize: theme.fontSizes.xlarge }}>Test Functioneaza</Text>
@@ -40,6 +36,7 @@ export default function App() {
       <StatusBar style="auto" />
       <Test />
     </View>
+    </DevicesContextProvider>
     </AuthenticationContextProvider>
   );
 }
