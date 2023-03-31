@@ -8,6 +8,7 @@ import { Righteous_400Regular } from '@expo-google-fonts/righteous';
 
 import { AuthenticationContextProvider } from './services/authentication/authentication.context';
 import { DevicesContextProvider } from './services/devices/devices.context';
+import { DevicesRealTimeContextProvider } from './services/devices/devicesRealTime.context';
 
 import { Test } from './src/test';
 
@@ -26,6 +27,7 @@ export default function App() {
   return (
     <AuthenticationContextProvider>
     <DevicesContextProvider>
+    <DevicesRealTimeContextProvider>
     <View style={styles.container}>
       <Text style={{ fontFamily: theme.fonts.regular, color:theme.colors.warning, fontSize: theme.fontSizes.xxlarge }}>Smart IOT APP</Text>
       <Text style={{ fontFamily: theme.fonts.medium, color:theme.colors.secondary, fontSize: theme.fontSizes.xlarge }}>Test Functioneaza</Text>
@@ -36,6 +38,7 @@ export default function App() {
       <StatusBar style="auto" />
       <Test />
     </View>
+    </DevicesRealTimeContextProvider>
     </DevicesContextProvider>
     </AuthenticationContextProvider>
   );

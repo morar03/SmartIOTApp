@@ -46,15 +46,6 @@ export const UpdateNameDeviceRequest = async(email, series, newName) =>{
     }) ;
 };
 
-export const getDataDoorStatus_Type_GarageDoor = async (series) => {
-    const DataDoorStatus = ref(dbRealtime, series+"/statusDoorFirebase");
-    onValue(DataDoorStatus, (snapshot) => {
-        const data =  snapshot.val();
-        // return data;
-    });
-    
-};
-
 const CheckDeviceExists = async (series) => {
     const documentSnapshot = await getDoc(getRefDeviceDocumentsFromDevicesDB(series));
     if (documentSnapshot.exists()) {

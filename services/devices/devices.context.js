@@ -1,6 +1,6 @@
 import React, {useState, createContext, useEffect, useContext} from "react";
 import { AuthenticationContext } from "../authentication/authentication.context";
-import { addNewDeviceRequest, getAllDevicesUser, UpdateNameDeviceRequest , deleteDeviceRequest, getDataDoorStatus_Type_GarageDoor} from "./devices.services";
+import { addNewDeviceRequest, getAllDevicesUser, UpdateNameDeviceRequest , deleteDeviceRequest, getDataDoorStatus_Type_GarageDoor_Request} from "./devices.services";
 
 export const DevicesContext = createContext();
 
@@ -10,12 +10,7 @@ export const DevicesContextProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const { user } = useContext(AuthenticationContext)
-
-    // const test = getDataDoorStatus_Type_GarageDoor("199700125CM1901").then((r)=>{
-    //     console.log(r);
-    // });
-    
-    
+ 
     const retrieveDevices = (user) =>{
         setIsLoading(true);
         setDevices([]);
@@ -70,6 +65,9 @@ export const DevicesContextProvider = ({children}) => {
     useEffect(() =>{
         if (user){
             retrieveDevices(user);
+        }
+        else{
+            setDevices([]);
         }
         
     },[user]);    
