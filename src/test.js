@@ -10,7 +10,7 @@ import {  View } from 'react-native';
 export const Test = () =>{
     const {onLogin, error, isLoading, onRegister, onLogout} = useContext(AuthenticationContext);
     const {addNewDevice, deleteDevice, devices, updateDeviceName } = useContext(DevicesContext);
-    const { devicesRealTime_type_GarageDoor } = useContext(DevicesRealTimeContext);
+    const { devicesRealTime_type_GarageDoor, ActionEvent_door_type_GarageDoor,ActionEvent_StopDoor_type_GarageDoor } = useContext(DevicesRealTimeContext);
     
     return(
         <View>
@@ -34,6 +34,12 @@ export const Test = () =>{
         </Button>
         <Button  onPress={() => {console.log(devices)} }>
             getValueLISTDEVICE
+        </Button>
+        <Button  onPress={() => ActionEvent_door_type_GarageDoor(devicesRealTime_type_GarageDoor[0]) }>
+            ActionDoor
+        </Button>
+        <Button  onPress={() => ActionEvent_StopDoor_type_GarageDoor(devicesRealTime_type_GarageDoor[0]) }>
+            STOPActionDoor
         </Button>
         <Button  onPress={() => onLogout() }>
         SignOut
