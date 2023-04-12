@@ -1,8 +1,10 @@
 import { authFirebase, dbFirestore } from "../../config/firebase";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword,sendPasswordResetEmail, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendEmailVerification } from 'firebase/auth';
 import {collection, doc, setDoc, getDocs} from "firebase/firestore";
 
 export const loginRequest = (email, password) => signInWithEmailAndPassword(authFirebase, email, password);
+
+export const resetPasswordRequest = (email) => sendPasswordResetEmail(authFirebase, email);
 
 export const registerRequest = (email, password, firstName, lastName, phoneNumber) => createUserWithEmailAndPassword(authFirebase, email, password)
 .then((user) => {

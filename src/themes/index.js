@@ -1,4 +1,11 @@
-import defaultTheme from './defaultTheme';
+import {colors, fonts, fontSizes, spacing, borderRadius, boxShadow,} from "./defaultTheme";
 import light from './light';
 
-export default defaultTheme;
+export const theme = {
+    colors,
+    fonts,
+    fontSizes,
+    spacing,
+    borderRadius,
+    boxShadow,
+};

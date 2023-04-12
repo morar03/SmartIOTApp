@@ -58,7 +58,6 @@ export const DevicesContextProvider = ({children}) => {
         })
         .catch((err) => {
             setError("Wrong New Name ");
-            console.log(err);
         });
     };
 
