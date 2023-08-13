@@ -9,8 +9,10 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-#sdasa
+
+#Credentials for connection with Firebase
 .env
+#---------------------------------------
 
 # macOS
 .DS_Store
