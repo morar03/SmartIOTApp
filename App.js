@@ -1,5 +1,5 @@
 
-import { StyleSheet, Text, View, SafeAreaView, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 
 
 import {theme} from "./src/themes/index";
@@ -11,8 +11,7 @@ import { Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 
 import { AuthenticationContextProvider } from './services/authentication/authentication.context';
-import { DevicesContextProvider } from './services/devices/devices.context';
-import { DevicesRealTimeContextProvider } from './services/devices/devicesRealTime.context';
+
 
 import { Navigator } from './src/infrastructure/navigation';
 
@@ -34,12 +33,7 @@ export default function App() {
     <StatusBar barStyle="default" />
     <ThemeProvider theme={theme}>
     <AuthenticationContextProvider>
-    <DevicesContextProvider>
-    <DevicesRealTimeContextProvider>
       <Navigator />
-
-    </DevicesRealTimeContextProvider>
-    </DevicesContextProvider>
     </AuthenticationContextProvider>
     </ThemeProvider>
     

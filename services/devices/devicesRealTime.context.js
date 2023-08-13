@@ -36,10 +36,8 @@ export const DevicesRealTimeContextProvider = ({children}) => {
                     objectToUpdate.TriggerSTOPFunctionDevice = !snapshot.val();
                 }
                 setDevicesRealTime([...devicesRealTime_type_GarageDoor]);
-            }
-            
+            }   
         }); 
-        
     }
 
     const Listener_DataDoorStatus_Type_GarageDoor_Request = (device) => {

@@ -4,10 +4,11 @@ import styled from 'styled-components'
 import { useContext } from "react"
 
 import {NavigationContainer} from '@react-navigation/native';
+import { AppNavigator } from './app.navigator';
 import { AuthenticationContext } from '../../../services/authentication/authentication.context';
 
 import { AccountNavigator } from './account.navigator';
-import { Test } from '../../test';
+
 
 export const Navigator = () => {
     const { isAuthenticated } = useContext(AuthenticationContext);
@@ -16,17 +17,10 @@ export const Navigator = () => {
         <NavigationContainer>
            
             {isAuthenticated ? (
-                <Texts>Test Functioneaza</Texts>
+                <AppNavigator/>
             ):(
                 <AccountNavigator/>
             )}
         </NavigationContainer>
        );
   };
-
-const Texts = styled(Text)
-`
-font-family: ${(props) =>props.theme.fonts.medium};
-font-size: ${(props) =>props.theme.fontSizes.xlarge};
-color: ${(props) =>props.theme.colors.warning};
-`;
