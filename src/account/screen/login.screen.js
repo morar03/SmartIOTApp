@@ -22,13 +22,16 @@ import {
   ErrorContainer,
 } from '../components/styles.login';
 
+import { DevicesContext } from '../../../services/devices/devices.context';
+
 
 export const LoginScreen = ({navigation}) =>{
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
+  const [Email, setEmail] = useState("morarcristiantraian@gmail.com");
+  const [Password, setPassword] = useState("admin123");
   const [hidePassword, setHidePassword] = useState(true);
   const [animationVisible, setAnimationVisible] = useState(true);
   const {onLogin, error, isSucces } = useContext(AuthenticationContext);
+  const {devices } = useContext(DevicesContext);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(

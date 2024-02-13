@@ -13,8 +13,7 @@ export const addNewDeviceRequest = async(email, series) =>
         }); 
     }else{
         throw new Error('Wrong device serie');
-    }
-      
+    }   
 };
 
 export const deleteDeviceRequest = async (email, series) =>
@@ -24,10 +23,12 @@ export const deleteDeviceRequest = async (email, series) =>
 
 export const getAllDevicesUser = async (email) =>{  
     const listDevices = [];
+    let index = 0;
     if (email) {
         await getDocs(getRefDevicesCollectionFromUser(email)).then((response)=>{
             response.forEach((doc) => {
-                listDevices.push({id: doc.id, ...doc.data()});
+                listDevices.push({id:index , ...doc.data()});
+                index++;
             });
         });  
     };

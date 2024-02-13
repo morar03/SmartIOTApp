@@ -1,29 +1,39 @@
-import React from 'react';
+
+import React, {useState, createContext, useEffect, useContext} from "react";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator, useBottomTabBarHeight,  } from '@react-navigation/bottom-tabs';
 import { Test } from '../../test';
-import { theme } from "../../themes";
+import { View, FlatList, Text, Image, StyleSheet} from 'react-native';
+
+
+import { DevicesScreen } from '../../content/screen/devices.screen';
+
+
 import { DevicesContextProvider } from '../../../services/devices/devices.context';
 import { DevicesRealTimeContextProvider } from '../../../services/devices/devicesRealTime.context';
+import { DeviceRealTime_GarageDoor_RealTimeContextProvider } from '../../../services/devices/TypeOfDevices/devicesRealTime.GarageDoor.context';
+
 
 const Tab = createBottomTabNavigator();
 
 export const AppNavigator = () => {
-    
+
     return (
-        <DevicesContextProvider>
-        <DevicesRealTimeContextProvider>
+        
         <Tab.Navigator
-            screenOptions={createScreenOptions}
-            initialRouteName="Home"
-            backBehavior= 'history'
+        screenOptions={createScreenOptions}
+        initialRouteName="Home"
+        backBehavior= 'history'
         >
-            <Tab.Screen name="Devices" component={Test}/>    
+            <Tab.Screen name="Devices" component={DevicesScreen}
+            options={{
+                headerShown: false,
+            }}
+            />    
             <Tab.Screen name="Home" component={Test}/>
             <Tab.Screen name="Settings" component={Test}/>
         </Tab.Navigator>
-        </DevicesRealTimeContextProvider>
-        </DevicesContextProvider>
+      
     );
 };
 

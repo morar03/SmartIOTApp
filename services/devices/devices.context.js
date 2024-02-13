@@ -1,81 +1,75 @@
 import React, {useState, createContext, useEffect, useContext} from "react";
 import { AuthenticationContext } from "../authentication/authentication.context";
-import { addNewDeviceRequest, getAllDevicesUser, UpdateNameDeviceRequest , deleteDeviceRequest, getDataDoorStatus_Type_GarageDoor_Request} from "./devices.services";
+import { addNewDeviceRequest, getAllDevicesUser, UpdateNameDeviceRequest , deleteDeviceRequest} from "./devices.services";
 
 export const DevicesContext = createContext();
 
 export const DevicesContextProvider = ({children}) => {
     
     const [devices, setDevices] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [devices_isLoading, set_devices_IsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const { user } = useContext(AuthenticationContext)
+    const { user } = useContext(AuthenticationContext);
  
     const retrieveDevices = (user) =>{
-        setIsLoading(true);
+        set_devices_IsLoading(true);
         setDevices([]);
         setTimeout( () => {
             getAllDevicesUser(user.email).then((results)=>{
-                setIsLoading(false);
                 setDevices(results);
+                set_devices_IsLoading(false);
             })
             .catch((err)=>{
-                setIsLoading(false);
+                set_devices_IsLoading(false);
                 setError(err);
             });
         }, 2000 );
     };
 
     const addNewDevice =(series) => {
-        setIsLoading(true);
-        setIsLoading(false);
         addNewDeviceRequest(user.email, series).then(()=>{
             retrieveDevices(user);
-            setIsLoading(false);
         })
         .catch((err) => {
             setError("Wrong device serie");
+            set_devices_IsLoading(false);
         });
             
     };
 
     const deleteDevice = (series) => {
-            setIsLoading(true); 
-            deleteDeviceRequest(user.email, series).then(()=>{
-                retrieveDevices(user);
-                setIsLoading(false);
-            })
-            .catch((err) => {
-                setError("Wrong device serie");
-            });
+        deleteDeviceRequest(user.email, series).then(()=>{
+            retrieveDevices(user);
+        })
+        .catch((err) => {
+            setError("Wrong device serie");
+            set_devices_IsLoading(false);
+        });
     };
 
     const updateDeviceName = (series, newName) => {
-        setIsLoading(true); 
         UpdateNameDeviceRequest(user.email, series, newName).then(()=>{
             retrieveDevices(user);
-            setIsLoading(false);
         })
         .catch((err) => {
             setError("Wrong New Name ");
+            set_devices_IsLoading(false);
         });
     };
 
     useEffect(() =>{
-        if (user){
-            retrieveDevices(user);
+        setDevices([]);
+        if (user && user.email){
+            retrieveDevices(user); 
         }
-        else{
-            setDevices([]);
-        }
-        
+        console.log(devices);
     },[user]);    
 
     return (
         <DevicesContext.Provider
         value={{
             devices,
-            isLoading,
+            devices_isLoading,
             error,
             addNewDevice,
             deleteDevice,

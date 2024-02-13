@@ -10,6 +10,7 @@ export const colors = {
     success: "#4CB944",
     error: "#CC1400",
     warning: "#0F162E",
+    color: "black",
   };
   
 export const fonts = {

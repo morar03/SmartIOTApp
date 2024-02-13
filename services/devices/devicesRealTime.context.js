@@ -2,95 +2,58 @@ import { dbRealtime } from "../../config/firebase";
 import { ref, onValue, get, child ,update} from "firebase/database";
 import React, {useState, createContext, useEffect, useContext} from "react";
 import { DevicesContext } from "./devices.context";
+import { AuthenticationContext } from "../authentication/authentication.context";
+import { DeviceRealTime_GarageDoor_RealTimeContext } from "./TypeOfDevices/devicesRealTime.GarageDoor.context";
+
+
 
 export const DevicesRealTimeContext = createContext();
 
 export const DevicesRealTimeContextProvider = ({children}) => {
 
-    const [devicesRealTime_type_GarageDoor, setDevicesRealTime] = useState([]);
+    const [devicesRealTime, setDevicesRealTime] = useState([]);
+    const [isLoading, setIsLoading] = useState(false); 
+    const { user } = useContext(AuthenticationContext);
     const { devices } = useContext(DevicesContext);
+    const { list_devicesRealTime_type_GarageDoor,
+        Type_GarageDoor_Add_device_type_inList,
+        } = useContext(DeviceRealTime_GarageDoor_RealTimeContext);
 
-    const ActionEvent_door_type_GarageDoor = (device) =>{
-        const DataEventDoor = ref(dbRealtime, device.Series );
-        update(DataEventDoor, {
-            eventTriggerDoorFirebase : true,
-          });
-    }
-
-    const ActionEvent_StopDoor_type_GarageDoor = (device) =>{
-        const DataEventDoor = ref(dbRealtime, device.Series );
-        get(child(ref(dbRealtime), device.Series + "/TriggerSTOPFunctionDevice")).then((snapshot) => {
-            if (snapshot.exists()) {
-                const objectToUpdate = devicesRealTime_type_GarageDoor.find(obj => obj.Series === device.Series);
-                if (objectToUpdate){
-                    if (snapshot.val()){
-                        update(DataEventDoor, {
-                            TriggerSTOPFunctionDevice : false,
-                        });
-                        
-                    }else{
-                        update(DataEventDoor, {
-                            TriggerSTOPFunctionDevice : true,
-                        });
-                    }
-                    objectToUpdate.TriggerSTOPFunctionDevice = !snapshot.val();
-                }
-                setDevicesRealTime([...devicesRealTime_type_GarageDoor]);
-            }   
-        }); 
-    }
-
-    const Listener_DataDoorStatus_Type_GarageDoor_Request = (device) => {
-        const DataDoorStatus = ref(dbRealtime, device.Series +"/statusDoorFirebase");
-        onValue(DataDoorStatus, (snapshot) => {
-        const objectToUpdate = devicesRealTime_type_GarageDoor.find(obj => obj.Series === device.Series);
-        if (objectToUpdate){
-            objectToUpdate.StatusDoor = snapshot.val();
-        }
-        setDevicesRealTime([...devicesRealTime_type_GarageDoor]);
-        });
-    };
     
-    const Add_device_type_GarageDoor_inList = (device) =>{
-        const obj = { Series: device.Series, StatusDoor:false};
-        setDevicesRealTime(devicesRealTime_type_GarageDoor => devicesRealTime_type_GarageDoor.concat(obj));
-        get(child(ref(dbRealtime), device.Series + "/statusDoorFirebase")).then((snapshot) => {
-            if (snapshot.exists()) {
-            const objectToUpdate = devicesRealTime_type_GarageDoor.find(obj => obj.Series === device.Series);
-            if (objectToUpdate){
-                objectToUpdate.StatusDoor = snapshot.val();
-            }
-            setDevicesRealTime([...devicesRealTime_type_GarageDoor]);
-            }
-        }); 
-        Listener_DataDoorStatus_Type_GarageDoor_Request(device);
-    };
-
     const UpdatingListWithActiveDevices = (devices) =>{
+        setIsLoading(true);
         devices.map((device,i)=>{
+            console.log("intra "+i);
+            console.log(device);
             if (device.Type === "GarageDoor"){
-                Add_device_type_GarageDoor_inList(device);
+                Type_GarageDoor_Add_device_type_inList(device);
+                
             }
         });
+        setIsLoading(false);
     };
 
-    useEffect(()=>{
-        if (devices) {
-            setDevicesRealTime([]);
-            UpdatingListWithActiveDevices(devices); 
-        }else{
-            setDevicesRealTime([]);
-        }
-    }, [devices]);
+    // useEffect(()=>{
+    //         console.log("Devices:");
+    //         console.log(devices);
+    //         UpdatingListWithActiveDevices(devices); 
+    // }, [devices, user]);
+
+    // useEffect(()=>{
+    //     setDevicesRealTime([]);
+    //     list_devicesRealTime_type_GarageDoor.map((device,i)=>{
+    //     setDevicesRealTime(devicesRealTime => devicesRealTime.concat(device));
+    //     });
+
+    // },[list_devicesRealTime_type_GarageDoor]);
 
 
     
     return (
         <DevicesRealTimeContext.Provider
         value={{
-            devicesRealTime_type_GarageDoor,
-            ActionEvent_door_type_GarageDoor,
-            ActionEvent_StopDoor_type_GarageDoor,
+            devicesRealTime,
+            isLoading,
         }}
         >
         {children}

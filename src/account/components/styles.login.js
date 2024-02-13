@@ -42,7 +42,7 @@ export const TextInputLabel = styled(TextInput).attrs({
 
 export const Spacer = styled(View)
 `
-    padding-top:${(props)=>props.theme.spacing.medium};
+    margin-top:${(props)=>props.theme.spacing.medium};
 `;
 
 export const ForgotPasswordContainer = styled(View)
