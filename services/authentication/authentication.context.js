@@ -37,6 +37,7 @@ export const AuthenticationContextProvider = ({children}) => {
                  
         }).catch((e) => {
             setIsLoading(false);
+            console.log(e);
             setError("Try again Email/Password is wrong");
         })
     }
@@ -76,6 +77,7 @@ export const AuthenticationContextProvider = ({children}) => {
             setUser(user);
         }).catch((e)=>{
             setIsLoading(false);
+            console.log(e);
             setError("Error: Email is not valid");
         })
         
