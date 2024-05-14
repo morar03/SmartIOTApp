@@ -54,15 +54,6 @@ export const LoginScreen = ({navigation}) =>{
 
   return (
     <AccountBackground>
-    <AnimationWrapper >
-        <LottieView
-          source={require("../../../assets/data.json")}
-          key="animation"
-          autoPlay
-          loop
-          resizeMode="cover"
-      />
-      </AnimationWrapper>
       {animationVisible && (
       <AnimationWrapper >
         <LottieView
